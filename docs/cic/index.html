@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Compound interest calculator</title>
+    <style>
+        .container {
+            margin: 150px;
+            width: 500px;
+            height: 500px;
+            border: 1px solid #b3b3b3;
+            padding-top: 20px;
+            padding-left: 20px;
+            box-shadow: 5px 5px 2px #b3b3b3;
+        }
+    </style>
+</head>
+<body onload="updateSlider('pa_slider', 'Principal_amount_value'); updateSlider('ri_slider', 'Rate_of_interest_value'); updateSlider('tp_slider', 'Time_Period_value'); calculateResult();">
+    
+    <h1 style="">COMPOUND INTEREST CALCULATOR</h1>
+    <div class="container">
+        <label for="PA" >Principal Amount</label>
+        <input type="text" id="Principal_amount_value" disabled /><br/>
+        <input type="range" min="1000" max="10000000" id="pa_slider" oninput="updateSlider('pa_slider', 'Principal_amount_value'); calculateResult();" />
+        <br/><br/>
+        
+        <label for="ri" >Rate of Interest</label>
+        <input type="text" id="Rate_of_interest_value" disabled /><br/>
+        <input type="range" min="1.00" max="50.0" id="ri_slider" step="0.1" oninput="updateSlider('ri_slider', 'Rate_of_interest_value'); calculateResult();" />
+        <br/><br/>
+        
+        <label for="TP">Time Period</label>
+        <input type="text" id="Time_Period_value" disabled /><br/>
+        <input type="range" min="1" max="30" id="tp_slider" oninput="updateSlider('tp_slider', 'Time_Period_value'); calculateResult();" />
+        <br/><br/> 
+
+        <label for="cf">Compound frequency</label>
+        <select id="cf" oninput="calculateResult()">
+            <option>Yearly</option>
+            <option>Half-Yearly</option>
+            <option>Quarterly</option>
+        </select><br/><br/><br/>
+
+        <div>
+            <label for="pa_result">Principal Amount</label>
+            <input type="text" id="pa_result" disabled />
+            <br/><br/>
+
+            <label for="ti_result">Total Interest</label>
+            <input type="text" id="ti_result" disabled />
+            <br/><br/>
+
+            <label for="ta_result">Total Amount</label>
+            <input type="text" id="ta_result" disabled />
+            <br/><br/>
+
+        </div>
+
+    </div>
+    
+    <script>
+        var slider = document.getElementById('pa_slider')
+        slider.value = 100000;
+        var slider = document.getElementById('ri_slider')
+        slider.value = 6.0;
+        var slider = document.getElementById('tp_slider')
+        slider.value = 5;
+        
+        function getFrequency(){
+            var n;
+            cf= document.getElementById('cf');
+            if(cf.value=='Half-Yearly') {
+                n=2;
+            }
+            else if(cf.value=='Quarterly') {
+                n=4;
+            }
+            else {
+                n=1;
+            }
+            return n;
+        }
+     
+        function updateSlider(slider, valuebox) {
+            var pa = document.getElementById(slider);
+            var val = document.getElementById(valuebox);
+            val.value = pa.value;
+        }
+        
+        function calculateResult() {
+            var n = getFrequency();
+            var p = document.getElementById('pa_slider').value;
+            var t = document.getElementById('tp_slider').value;
+            var r = document.getElementById('ri_slider').value;
+            var pr = document.getElementById('pa_result');
+            pr.value = p;
+            var ti = document.getElementById('ti_result');
+            var A = document.getElementById('ta_result');
+            var ans = p * ( (1 + (r / (100 * n) ) )**(n * t) );
+            A.value = parseInt(ans) + 1;
+            ti.value = A.value - p;
+        }
+    </script>
+</body>
+</html>
