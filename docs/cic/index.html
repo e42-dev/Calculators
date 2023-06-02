@@ -56,32 +56,32 @@
         .Value_container {
             float: right; 
             border-color:transparent; 
-            background-color: #E5FAF5;
+            /*background-color: #E5FAF5;*/
             text-align: right;
             width: 75px;
-            color: #00D09C;
+            /*color: #00D09C;*/
         }
 
-        .sldier {
-            width: 300px;
+        .slider {
+            width: 475px;
         }
         
         .Units {
             float: right;
             border-color:transparent;
             width: 15px;
-            background-color: #E5FAF5;
+            /*background-color: #E5FAF5;*/
             text-align: left;
-            color: #00D09C;
+            /*color: #00D09C;*/
         }
-        
+
         .result_container {
             float: right;
             width: 100px;
             text-align: left;
             border-color: transparent;
-            background-color: #E5FAF5;
-            color: black;
+            /*background-color: #E5FAF5;
+            color: black;*/
             margin-right: 5px;
         }
     </style>
@@ -93,19 +93,19 @@
         <label for="PA" >Principal Amount</label>
         <input type="text" class="Value_container" style= "margin-right: 5px;" id="Principal_amount_value" disabled />      
         <input type="text"  class="Units" value="₹" disabled /><br/><br/>
-        <input type="range" min="1000" max="10000000" id="pa_slider" oninput="updateSlider('pa_slider', 'Principal_amount_value'); calculateResult();" />
+        <input type="range" min="1000" max="10000000" class="slider" id="pa_slider" oninput="updateSlider('pa_slider', 'Principal_amount_value'); calculateResult();" />
         <br/><br/>
         
         <label for="ri" >Rate of Interest</label>
         <input type="text"  class="Units" value="%" style= "margin-right: 5px;" disabled />
         <input type="text" id="Rate_of_interest_value" class="Value_container" disabled /><br/><br/>
-        <input type="range" min="1.00" max="50.0" id="ri_slider" step="0.1" oninput="updateSlider('ri_slider', 'Rate_of_interest_value'); calculateResult();" />
+        <input type="range" min="1.00" max="50.0" id="ri_slider" class="slider" step="0.1" oninput="updateSlider('ri_slider', 'Rate_of_interest_value'); calculateResult();" />
         <br/><br/>
         
         <label for="TP">Time Period</label>
         <input type="text"  class="Units" value="Yr" style= "margin-right: 5px;" disabled />
         <input type="text" id="Time_Period_value" class="Value_container" disabled /><br/><br/>
-        <input type="range" min="1" max="30" id="tp_slider" oninput="updateSlider('tp_slider', 'Time_Period_value'); calculateResult();" />
+        <input type="range" min="1" max="30" id="tp_slider" class="slider" oninput="updateSlider('tp_slider', 'Time_Period_value'); calculateResult();" />
         <br/><br/> 
 
         <label for="cf">Compound frequency</label>
