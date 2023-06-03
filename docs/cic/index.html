@@ -36,10 +36,10 @@
             
             .result_container {
                 float: right;
-                width: 50px;
+                width: 150px;
                 text-align: right;
                 border-color: transparent;
-                background-color: greenyellow;
+                background-color: red;
             }    
         }
         
@@ -77,35 +77,48 @@
 
         .result_container {
             float: right;
-            width: 100px;
+            width: 120px;
             text-align: left;
             border-color: transparent;
             /*background-color: #E5FAF5;
             color: black;*/
             margin-right: 5px;
         }
+
+        input[type="number"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
     </style>
 </head>
-<body onload="updateSlider('pa_slider', 'Principal_amount_value'); updateSlider('ri_slider', 'Rate_of_interest_value'); updateSlider('tp_slider', 'Time_Period_value'); calculateResult();">
-    
+<body onload="updateSliderValue('pa_slider', 'Principal_amount_value'); updateSliderValue('ri_slider', 'Rate_of_interest_value'); updateSliderValue('tp_slider', 'Time_Period_value'); calculateResult();">
+
     <h1>COMPOUND INTEREST CALCULATOR</h1>
     <div class="container">
         <label for="PA" >Principal Amount</label>
-        <input type="text" class="Value_container" style= "margin-right: 5px;" id="Principal_amount_value" disabled />      
-        <input type="text"  class="Units" value="₹" disabled /><br/><br/>
-        <input type="range" min="1000" max="10000000" class="slider" id="pa_slider" oninput="updateSlider('pa_slider', 'Principal_amount_value'); calculateResult();" />
+        <input type="number" class="Value_container" oninput="updateSliderValue('Principal_amount_value', 'pa_slider'); calculateResult()" id="Principal_amount_value" style= "margin-right: 5px; text-align: left;" />      
+        <input type="text"  class="Units" value="₹" disabled/><br/><br/>
+        <input type="range" min="1000" max="10000000" class="slider" id="pa_slider" oninput="updateSliderValue('pa_slider', 'Principal_amount_value'); calculateResult();" />
         <br/><br/>
         
         <label for="ri" >Rate of Interest</label>
-        <input type="text"  class="Units" value="%" style= "margin-right: 5px;" disabled />
-        <input type="text" id="Rate_of_interest_value" class="Value_container" disabled /><br/><br/>
-        <input type="range" min="1.00" max="50.0" id="ri_slider" class="slider" step="0.1" oninput="updateSlider('ri_slider', 'Rate_of_interest_value'); calculateResult();" />
+        <input type="text"  class="Units" value="%" style= "margin-right: 5px;" disabled/>
+        <input type="number" id="Rate_of_interest_value" oninput="updateSliderValue('Rate_of_interest_value', 'ri_slider'); calculateResult();" class="Value_container" /><br/><br/>
+        <input type="range" min="1.00" max="50.0" id="ri_slider" class="slider" step="0.1" oninput="updateSliderValue('ri_slider', 'Rate_of_interest_value'); calculateResult();" />
         <br/><br/>
         
         <label for="TP">Time Period</label>
         <input type="text"  class="Units" value="Yr" style= "margin-right: 5px;" disabled />
-        <input type="text" id="Time_Period_value" class="Value_container" disabled /><br/><br/>
-        <input type="range" min="1" max="30" id="tp_slider" class="slider" oninput="updateSlider('tp_slider', 'Time_Period_value'); calculateResult();" />
+        <input type="number" id="Time_Period_value" oninput="updateSliderValue('Rate_of_interest_value', 'ri_slider'); calculateResult(); " class="Value_container" /><br/><br/>
+        <input type="range" min="1" max="30" id="tp_slider" class="slider" oninput="updateSliderValue('tp_slider', 'Time_Period_value'); calculateResult();" />
         <br/><br/> 
 
         <label for="cf">Compound frequency</label>
@@ -113,6 +126,7 @@
             <option>Yearly</option>
             <option>Half-Yearly</option>
             <option>Quarterly</option>
+            <option>Monthly</option>
         </select><br/><br/><br/>
 
         <div>
@@ -136,8 +150,6 @@
     </div>
     
     <script>
-        var pa_text = document.getElementById('Principal_amount_value');
-        pa_text.textContent = 'Rs.'
         var slider = document.getElementById('pa_slider');
         slider.value = 100000;
         var slider = document.getElementById('ri_slider');
@@ -149,18 +161,21 @@
             var n;
             cf= document.getElementById('cf');
             if(cf.value=='Half-Yearly') {
-                n=2;
+                n = 2;
             }
             else if(cf.value=='Quarterly') {
-                n=4;
+                n = 4;
+            }
+            else if(cf.value == 'Monthly') {
+                n = 12;
             }
             else {
-                n=1;
+                n = 1;
             }
             return n;
         }
      
-        function updateSlider(slider, valuebox) {
+        function updateSliderValue(slider, valuebox) {
             var pa = document.getElementById(slider);
             var val = document.getElementById(valuebox);
             val.value = pa.value;
