@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SIP calculator</title>
+    <style>
+        @media screen and (min-width:400px) and (max-width: 600px) {
+            body {
+                background-color: red;
+            }
+            .container1 {
+                width: 250px;
+                height: 250px;
+                border: 1px solid black;
+                padding-top: 20px;
+                padding-left: 20px;
+                box-shadow: 5px 5px 2px #b3b3b3;
+                background-color: blue;
+            }
+
+            .Value_container {
+                float: right; 
+                border-color:transparent; 
+                background-color: greenyellow;
+                text-align: right;
+                width: 50px;
+            }
+            
+            .Units {
+                float: right;
+                border-color:transparent;
+                width: 10px;
+                background-color: greenyellow;
+                margin-right: 5px;
+                text-align: left;
+            }
+            
+            .result_container {
+                float: right;
+                width: 50px;
+                text-align: right;
+                border-color: transparent;
+                background-color: greenyellow;
+            }    
+        }
+        
+        .container {
+            margin: 150px;
+            width: 500px;
+            height: 500px;
+            border: 1px solid #b3b3b3;
+            padding-top: 20px;
+            padding-left: 20px;
+            box-shadow: 5px 5px 2px #b3b3b3;
+        }
+
+        .Value_container {
+            float: right; 
+            border-color:transparent; 
+            /*background-color: #E5FAF5;*/
+            text-align: right;
+            width: 75px;
+            /*color: #00D09C;*/
+        }
+
+        .slider {
+            width: 475px;
+        }
+        
+        .Units {
+            float: right;
+            border-color:transparent;
+            width: 15px;
+            /*background-color: #E5FAF5;*/
+            text-align: left;
+            /*color: #00D09C;*/
+        }
+
+        .result_container {
+            float: right;
+            width: 100px;
+            text-align: left;
+            border-color: transparent;
+            /*background-color: #E5FAF5;
+            color: black;*/
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body onload="updateSlider('mp_slider', 'monthly_investment_value'); updateSlider('er_slider', 'Expected_return_rate_value'); updateSlider('tp_slider', 'Time_Period_value'); calculateResult();">
+    
+    <h1>SYSTEMATIC INVESTMENT PLAN CALCULATOR</h1>
+    <div class="container">
+        <label for="mp" >Monthly Investment</label>
+        <input type="text" class="Value_container" style= "margin-right: 5px;" id="monthly_investment_value" disabled />      
+        <input type="text"  class="Units" value="₹" disabled /><br/><br/>
+        <input type="range" min="500" max="100000" class="slider" id="mp_slider" oninput="updateSlider('mp_slider', 'monthly_investment_value'); calculateResult();" />
+        <br/><br/>
+        
+        <label for="er" >Expected return rate</label>
+        <input type="text"  class="Units" value="%" style= "margin-right: 5px;" disabled />
+        <input type="text" id="Expected_return_rate_value" class="Value_container" disabled /><br/><br/>
+        <input type="range" min="1.00" max="30.0" id="er_slider" class="slider" step="0.1" oninput="updateSlider('er_slider', 'Expected_return_rate_value'); calculateResult();" />
+        <br/><br/>
+        
+        <label for="TP">Time Period</label>
+        <input type="text"  class="Units" value="Yr" style= "margin-right: 5px;" disabled />
+        <input type="text" id="Time_Period_value" class="Value_container" disabled /><br/><br/>
+        <input type="range" min="1" max="40" id="tp_slider" class="slider" oninput="updateSlider('tp_slider', 'Time_Period_value'); calculateResult();" />
+        <br/><br/> 
+
+        <div>
+            <label for="im_result">Invested Amount</label>
+            <input type="text" class="result_container" id="im_result" disabled />
+            <input type="text"  class="Units" value="₹" disabled />
+            <br/><br/>
+
+            <label for="es_result">Est. returns</label>
+            <input type="text" class="result_container" id="es_result" disabled />
+            <input type="text"  class="Units" value="₹" disabled />
+            <br/><br/>
+
+            <label for="tv_result">Total Value</label>
+            <input type="text" class="result_container" id="tv_result" disabled />
+            <input type="text"  class="Units" value="₹" disabled />
+            <br/><br/>
+
+        </div>
+
+    </div>
+    
+    <script>
+        var mp_text = document.getElementById('monthly_investment_value');
+        
+        mp_text.textContent = "Rs.";
+       // console.log(mp_text.textContent);
+        var slider = document.getElementById('mp_slider');
+        slider.value = 25000;
+        var slider = document.getElementById('er_slider');
+        slider.value = 12.0;
+        var slider = document.getElementById('tp_slider');
+        slider.value = 10;
+     
+        function updateSlider(slider, valuebox) {
+            //console.log(slider.textContent)
+            var pa = document.getElementById(slider);
+            var val = document.getElementById(valuebox);
+            val.value = pa.value;
+        }
+        
+        function calculateResult() {
+            var p = document.getElementById('mp_slider').value;
+            var t = document.getElementById('tp_slider').value;
+            var r = document.getElementById('er_slider').value;
+            var pr = document.getElementById('im_result');
+            var ti = document.getElementById('es_result');
+            var A = document.getElementById('tv_result');
+            var i = (r/100)/(t*12);
+            pr.value = p*(12*t);
+            var ans =  p*((((1 + i) ** (t*12))- 1)/ i)*(1 + i);
+            A.value = parseInt(ans)+1;
+            ti.value = A.value - pr.value;
+        }
+    </script>
+</body> 
+</html>
