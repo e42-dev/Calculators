@@ -102,7 +102,7 @@
 <body onload="updateSliderValue('pa_slider', 'Principal_amount_value'); updateSliderValue('ri_slider', 'Rate_of_interest_value'); updateSliderValue('tp_slider', 'Time_Period_value'); calculateResult();">
 
     <h1>COMPOUND INTEREST CALCULATOR</h1>
-    <a href="../index.html" ><button>Back</button></a>
+    <a href="../" ><button>Back</button></a>
     <div class="container">
         <label for="PA" >Principal Amount</label>
         <input type="number" class="Value_container" oninput="updateSliderValue('Principal_amount_value', 'pa_slider'); calculateResult()" id="Principal_amount_value" style= "margin-right: 5px; text-align: left;" />      
@@ -147,7 +147,7 @@
             <br/><br/>
 
         </div>
-        <a href="../">Click here</a>
+
     </div>
     
     <script>
@@ -191,12 +191,12 @@
             var ti = document.getElementById('ti_result');
             var A = document.getElementById('ta_result');
 
-            let pr1 = Number(p).toLocaleString("ta-IN", {style:"currency", currency:"INR", minimumFractionDigits: 0});
+            let pr1 = Number(p).toLocaleString("en-IN", {style:"currency", currency:"INR", minimumFractionDigits: 0});
             pr.value = pr1;
             var ans = p * ( (1 + (r / (100 * n) ) )**(n * t) );
-            var ans1 = Number(parseInt(ans) + 1).toLocaleString("ta-IN", {style:"currency", currency:"INR", minimumFractionDigits: 0});
+            var ans1 = Number(parseInt(ans) + 1).toLocaleString("en-IN", {style:"currency", currency:"INR", minimumFractionDigits: 0});
             A.value = ans1
-            var ti1 = Number(parseInt(ans) + 1 - p).toLocaleString("ta-IN", {style:"currency", currency:"INR", minimumFractionDigits: 0});
+            var ti1 = Number(parseInt(ans) + 1 - p).toLocaleString("en-IN", {style:"currency", currency:"INR", minimumFractionDigits: 0});
             ti.value = ti1;
         }
 
