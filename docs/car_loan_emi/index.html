@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Car loan emi calculator</title>
+    <style>
+        @media screen and (min-width:400px) and (max-width: 600px) {
+            body {
+                background-color: red;
+            }
+            .container1 {
+                width: 250px;
+                height: 250px;
+                border: 1px solid black;
+                padding-top: 20px;
+                padding-left: 20px;
+                box-shadow: 5px 5px 2px #b3b3b3;
+                background-color: blue;
+            }
+
+            .Value_container {
+                float: right; 
+                border-color:transparent; 
+                background-color: greenyellow;
+                text-align: right;
+                width: 50px;
+            }
+            
+            .Units {
+                float: right;
+                border-color:transparent;
+                width: 10px;
+                background-color: greenyellow;
+                margin-right: 5px;
+                text-align: left;
+            }
+            
+            .result_container {
+                float: right;
+                width: 150px;
+                text-align: right;
+                border-color: transparent;
+                background-color: red;
+            }    
+        }
+        
+        .container {
+            margin: 150px;
+            width: 500px;
+            height: 500px;
+            border: 1px solid #b3b3b3;
+            padding-top: 20px;
+            padding-left: 20px;
+            box-shadow: 5px 5px 2px #b3b3b3;
+        }
+
+        .Value_container {
+            float: right; 
+            border-color:transparent; 
+            /*background-color: #E5FAF5;*/
+            text-align: right;
+            width: 75px;
+            /*color: #00D09C;*/
+        }
+
+        .slider {
+            width: 475px;
+        }
+        
+        .Units {
+            float: right;
+            border-color:transparent;
+            width: 15px;
+            /*background-color: #E5FAF5;*/
+            text-align: left;
+            /*color: #00D09C;*/
+        }
+
+        .result_container {
+            float: right;
+            width: 120px;
+            text-align: left;
+            border-color: transparent;
+            /*background-color: #E5FAF5;
+            color: black;*/
+            margin-right: 5px;
+        }
+
+        input[type="number"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    </style>
+</head>
+<body onload="updateSliderValue('loan_amount_slider', 'principal_amount_value'); updateSliderValue('rate_of_interest_slider', 'rate_of_interest_value'); updateSliderValue('loan_tenure_slider', 'loan_tenure_value'); calculateResult();">
+
+    <h1>CAR LOAN EMI CALCULATOR</h1>
+    <a href="../"><button>BACK</button></a>
+    <div class="container">
+        <label for="loan_amount" >Loan amount</label>
+        <input type="number" class="Value_container" oninput="updateSliderValue('principal_amount_value', 'loan_amount_slider'); calculateResult()" id="principal_amount_value" style= "margin-right: 5px; text-align: left;" />      
+        <input type="text"  class="Units" value="₹" disabled/><br/><br/>
+        <input type="range" min="100000" max="10000000" class="slider" id="loan_amount_slider" oninput="updateSliderValue('loan_amount_slider', 'principal_amount_value'); calculateResult();" />
+        <br/><br/>
+        
+        <label for="rate_of_interest" >Rate of interest(p.a)</label>
+        <input type="text"  class="Units" value="%" style= "margin-right: 5px;" disabled/>
+        <input type="number" id="rate_of_interest_value" oninput="updateSliderValue('rate_of_interest_value', 'rate_of_interest_slider'); calculateResult();" class="Value_container" /><br/><br/>
+        <input type="range" min="1.00" max="30.0" id="rate_of_interest_slider" class="slider" step="0.1" oninput="updateSliderValue('rate_of_interest_slider', 'rate_of_interest_value'); calculateResult();" />
+        <br/><br/>
+        
+        <label for="loan_tenure">Loan tenure</label>
+        <input type="text"  class="Units" value="Yr" style= "margin-right: 5px;" disabled />
+        <input type="number" id="loan_tenure_value" oninput="updateSliderValue('loan_tenure_value', 'loan_tenure_slider'); calculateResult(); " class="Value_container" /><br/><br/>
+        <input type="range" min="1" max="30" id="loan_tenure_slider" class="slider" oninput="updateSliderValue('loan_tenure_slider', 'loan_tenure_value'); calculateResult();" />
+        <br/><br/> 
+
+        <div>
+            <label for="monthly_emi">Monthly emi</label>
+            <input type="text" class="result_container" id="monthly_emi_result" disabled />
+            <br/><br/>
+
+            <label for="principal_amount">principal amount</label>
+            <input type="text" class="result_container" id="principal_amount_result" disabled />
+            <br/><br/>
+
+            <label for="total_interest">Total interest</label>
+            <input type="text" class="result_container" id="total_interest_result" disabled />
+            <br/><br/>
+
+            <label for="total_amount">Total amount</label>
+            <input type="text" class="result_container" id="total_amount_result" disabled />
+            <br/><br/>
+
+        </div>
+
+    </div>
+    
+    <script>
+        var slider = document.getElementById('loan_amount_slider');
+        slider.value = 1000000;
+        var slider = document.getElementById('rate_of_interest_slider');
+        slider.value = 6.5;
+        var slider = document.getElementById('loan_tenure_slider');
+        slider.value = 5;
+        
+        function updateSliderValue(slider, valuebox) {
+            var pa = document.getElementById(slider);
+            var val = document.getElementById(valuebox);
+            val.value = pa.value;
+        }
+        
+        function calculateResult() {
+            var loan_amount = Number(document.getElementById('loan_amount_slider').value);
+            var loan_tenure = Number(document.getElementById('loan_tenure_slider').value);
+            var interest = Number(document.getElementById('rate_of_interest_slider').value);
+            var monthly_emi = document.getElementById('monthly_emi_result');
+            var principal_amount = document.getElementById('principal_amount_result');
+            var total_interest = document.getElementById('total_interest_result');
+            var total_amount = document.getElementById('total_amount_result');
+            
+            //E= P. R. (1+R)^n/[(1+R)^n-1]
+            var ans = ( loan_amount * (interest/1200) * ( ( 1 + ( interest/1200 ) ) ** ( loan_tenure*12 ) ) ) / ( ( ( 1 + (interest/1200)) ** ( loan_tenure*12 ) - 1 ) );
+            monthly_emi.value = Number(parseInt(ans)+1).toLocaleString("en-IN", {style:"currency", currency:"INR", minimumFractionDigits: 0})
+
+            principal_amount.value = Number(loan_amount).toLocaleString("en-IN", {style:"currency", currency:"INR", minimumFractionDigits: 0});
+
+            var b = ans * (loan_tenure * 12);
+            total_amount.value = Number(parseInt(b)).toLocaleString("en-IN", {style:"currency", currency:"INR", minimumFractionDigits: 0});
+
+            total_interest.value = Number(parseInt(b-loan_amount)).toLocaleString("en-IN", {style:"currency", currency:"INR", minimumFractionDigits: 0});
+            
+        }
+
+    </script>
+</body>
+</html>
