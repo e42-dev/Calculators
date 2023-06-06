@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home Loan EMI calculator</title>
+    <link rel="stylesheet" href="../style.css" />
+</head>
+<body onload="updateSliderToValuebox('loan_amount_slider', 'loan_amount_value'); updateSliderToValuebox('rate_of_interest_slider', 'rate_of_interest_value'); updateSliderToValuebox('tenure_slider', 'tenure_value'); calculateResult();">
+
+    <h1>HOME LOAN EMI CALCULATOR</h1>
+    <a href="../" ><button>Back</button></a>
+    <div class="container">
+        <label for="Loan amount" >Loan Amount</label>
+        <input type="number" class="Value_container" oninput="updateValueboxToSlider('loan_amount_value', 'loan_amount_slider'); calculateResult()" id="loan_amount_value" style= "margin-right: 5px; text-align: left;" />      
+        <input type="text"  class="Units" value="₹" disabled/><br/><br/>
+        <input type="range" min="100000" max="10000000" class="slider" id="loan_amount_slider" oninput="updateSliderToValuebox('loan_amount_slider', 'loan_amount_value'); calculateResult();" />
+        <br/><br/>
+        
+        <label for="Rate of Interest" >Rate of Interest(p.a.)</label>
+        <input type="text"  class="Units" value="%" style= "margin-right: 5px;" disabled/>
+        <input type="number" id="rate_of_interest_value" oninput="updateValueboxToSlider('rate_of_interest_value', 'rate_of_interest_slider'); calculateResult();" class="Value_container" /><br/><br/>
+        <input type="range" min="1.00" max="30.0" id="rate_of_interest_slider" class="slider" step="0.1" oninput="updateSliderToValuebox('rate_of_interest_slider', 'rate_of_interest_value'); calculateResult();" />
+        <br/><br/>
+        
+        <label for="Tenure">Tenure</label>
+        <input type="text"  class="Units" value="Yr" style= "margin-right: 5px;" disabled />
+        <input type="number" id="tenure_value" oninput="updateValueboxToSlider('tenure_value', 'tenure_slider'); calculateResult(); " class="Value_container" /><br/><br/>
+        <input type="range" min="1" max="30" id="tenure_slider" class="slider" oninput="updateSliderToValuebox('tenure_slider', 'tenure_value'); calculateResult();" />
+        <br/><br/><br/><br/>
+
+        <div>
+            
+            <label for="monthly_emi">Monthly EMI</label>
+            <input type="text" class="result_container" id="monthly_emi" disabled />
+            <br/><br/>
+
+            <label for="principal_amount_result">Principal Amount</label>
+            <input type="text" class="result_container" id="principal_amount_result" disabled />
+            <br/><br/>
+
+            <label for="total_interest_result">Total Interest</label>
+            <input type="text" class="result_container" id="total_interest_result" disabled />
+            <br/><br/>
+
+            <label for="total_amount_result">Total Amount</label>
+            <input type="text" class="result_container" id="total_amount_result" disabled />
+            <br/><br/>
+
+        </div>
+
+    </div>
+    
+    <script>
+        var slider = document.getElementById('loan_amount_slider');
+        slider.value = 1000000;
+        var slider = document.getElementById('rate_of_interest_slider');
+        slider.value = 6.5;
+        var slider = document.getElementById('tenure_slider');
+        slider.value = 5;
+        
+        function updateSliderToValuebox(slider, valuebox) {
+            var slider = document.getElementById(slider);
+            var valuebox = document.getElementById(valuebox);
+            valuebox.value = slider.value;
+        }
+        
+        function updateValueboxToSlider(valuebox, slider) {
+            var valuebox = document.getElementById(valuebox);
+            var slider = document.getElementById(slider);
+            slider.value = valuebox.value;
+        }
+
+        function calculateResult() {
+            var loan_amount = document.getElementById('loan_amount_value').value;
+            var rate_of_interest = (document.getElementById('rate_of_interest_value').value);
+            var tenure = document.getElementById('tenure_value').value;
+            var monthly_emi = document.getElementById('monthly_emi');
+            var principal_amount_result = document.getElementById('principal_amount_result');
+            var total_interest_result = document.getElementById('total_interest_result');
+            var total_amount_result = document.getElementById('total_amount_result');
+
+            //EMI = [P x R x (1+R) ^N]/ [(1+R) ^ (N-1)]
+            var monthly_emi_unformatted = [loan_amount * (rate_of_interest/12/100) * [(1 + (rate_of_interest/12/100) ) ** (12 * tenure)] ] / [ ( ((1 + (rate_of_interest/12/100) ) ** (12*tenure)) ) - 1];
+            var monthly_emi_formatted = Number(monthly_emi_unformatted).toLocaleString("en-In", {style: "currency", currency: "INR", minimumFractionDigits: 0});
+            monthly_emi.value = monthly_emi_formatted;
+            
+            var principal_amount_formatted = Number(loan_amount).toLocaleString("en-IN", {style: "currency", currency: "INR", minimumFractionDigits: 0});
+            principal_amount_result.value = principal_amount_formatted;
+
+            var total_amount_unformatted = monthly_emi_unformatted * 12 * tenure;
+            var total_amount_formatted = Number(total_amount_unformatted).toLocaleString("en-IN", {style: "currency", currency: "INR", minimumFractionDigits: 0});
+            total_amount_result.value = total_amount_formatted;
+            
+            var total_interest_unformatted = total_amount_unformatted - loan_amount;
+            var total_interest_formatted = Number(total_interest_unformatted).toLocaleString("en-IN", {style: "currency", currency: "INR", minimumFractionDigits: 0});
+            total_interest_result.value = total_interest_formatted;
+
+            
+        }
+    </script>
+</body>
+</html>
