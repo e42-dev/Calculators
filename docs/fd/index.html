@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fixed Deposit calculator</title>
+    <link rel="stylesheet" href="../style.css" />
+</head>
+<body onload="updateSliderToValuebox('total_investment_slider', 'total_investment_value'); updateSliderToValuebox('rate_of_interest_slider', 'rate_of_interest_value'); updateSliderToValuebox('time_period_slider', 'time_period_value'); calculateResult();">
+
+    <h1>FIXED DEPOSIT CALCULATOR</h1>
+    <a href="../" ><button>Back</button></a>
+    <div class="container">
+        <label for="total_investment" >Total investment</label>
+        <input type="number" class="Value_container" oninput="updateValueboxToSlider('total_investment_value', 'total_investment_slider'); calculateResult()" id="total_investment_value" style= "margin-right: 5px; text-align: left;" />      
+        <input type="text"  class="Units" value="₹" disabled/><br/><br/>
+        <input type="range" min="1000" max="10000000" class="slider" id="total_investment_slider" oninput="updateSliderToValuebox('total_investment_slider', 'total_investment_value'); calculateResult();" />
+        <br/><br/>
+        
+        <label for="rate_of_interest" >Rate of Interest</label>
+        <input type="text"  class="Units" value="%" style= "margin-right: 5px;" disabled/>
+        <input type="number" id="rate_of_interest_value" oninput="updateValueboxToSlider('rate_of_interest_value', 'rate_of_interest_slider'); calculateResult();" class="Value_container" /><br/><br/>
+        <input type="range" min="1.00" max="15.0" id="rate_of_interest_slider" class="slider" step="0.1" oninput="updateSliderToValuebox('rate_of_interest_slider', 'rate_of_interest_value'); calculateResult();" />
+        <br/><br/>
+        
+        <label for="TP">Time Period</label>
+        <select id="frequency" oninput="updateTimeperiodRange(); calculateResult();">
+            <option>Years</option>
+            <option>Months</option>
+            <option>Days</option>
+        </select>
+        <input type="number" id="time_period_value" oninput="updateValueboxToSlider('time_period_value', 'time_period_slider'); calculateResult(); " class="Value_container" style= "margin-right: 5px;" /><br/><br/>
+        <input type="range" min="1" max="25" id="time_period_slider" class="slider" oninput="updateSliderToValuebox('time_period_slider', 'time_period_value'); calculateResult();" />
+        <br/><br/> 
+
+        <div>
+            <label for="invested_amount">Invested Amount</label>
+            <input type="text" class="result_container" id="invested_amount" disabled />
+            <br/><br/>
+
+            <label for="estimated_returns">Estd. Returns</label>
+            <input type="text" class="result_container" id="estimated_returns" disabled />
+            <br/><br/>
+
+            <label for="total_value">Total Value</label>
+            <input type="text" class="result_container" id="total_value" disabled />
+            <br/><br/>
+
+        </div>
+
+    </div>
+    
+    <script>
+        var slider = document.getElementById('total_investment_slider');
+        slider.value = 100000;
+        var slider = document.getElementById('rate_of_interest_slider');
+        slider.value = 6.5;
+        var slider = document.getElementById('time_period_slider');
+        slider.value = 5;
+     
+        function updateSliderToValuebox(slider, valuebox) {
+            var slider = document.getElementById(slider);
+            var valuebox = document.getElementById(valuebox);
+            valuebox.value = slider.value;
+        }
+        
+        function updateValueboxToSlider(valuebox, slider) {
+            var valuebox = document.getElementById(valuebox);
+            var slider = document.getElementById(slider);
+            slider.value = valuebox.value;
+        }
+
+        function updateTimeperiodRange() {
+            frequency = document.getElementById('frequency');
+            time_period_slider = document.getElementById('time_period_slider');
+            if(frequency.value == 'Months') {
+                time_period_slider.min = "1";
+                time_period_slider.max = "11";
+            }
+            else if(frequency.value == 'Days') {
+                time_period_slider.min = "1";
+                time_period_slider.max = "31";
+            }
+            else {
+                time_period_slider.min = "1";
+                time_period_slider.max = "25";
+            }
+            updateSliderToValuebox('time_period_slider', 'time_period_value');
+        }
+
+        function getIndexForTime() {
+            if(document.getElementById('frequency').value == "Years") {
+                return 4;
+            }
+            else if(document.getElementById('frequency').value == "Months") {
+                return 12;
+            }
+            else {
+                return 365;
+            }
+        }
+
+        function calculateResult() {
+            var total_investment = document.getElementById('total_investment_value').value;
+            var rate_of_interest = document.getElementById('rate_of_interest_value').value;
+            var time_period = document.getElementById('time_period_value').value;
+            var invested_amount = document.getElementById('invested_amount');
+            var estimated_returns = document.getElementById('estimated_returns');
+            var total_value = document.getElementById('total_value');
+            
+            var invested_amount_unforamtted = total_investment;
+            var invested_amount_foramtted = Number(invested_amount_unforamtted).toLocaleString("en-IN", {style: "currency", currency: "INR", minimumFractionDigits: 0});
+            invested_amount.value = invested_amount_foramtted;
+            
+            var index = getIndexForTime(); 
+            //M= P + P {(1 + i/100) t – 1}
+            var total_value_unformatted;
+            //A = P (1+r/n) ^ (n * t)
+            if(index == 4) {
+                total_value_unformatted = total_investment * [ (1 + rate_of_interest/400) ** (4 * time_period) ];
+            }
+            else {
+                total_value_unformatted = total_investment * [ (1 + rate_of_interest/100/index) ** (time_period) ];
+            }
+            var total_value_formatted = total_value_unformatted.toLocaleString("en-IN", {style: "currency", currency: "INR", maximumFractionDigits: 0});
+            total_value.value = total_value_formatted;
+
+            var estimated_returns_unformatted = total_value_unformatted - total_investment;
+            var estimated_returns_formatted = estimated_returns_unformatted.toLocaleString("en-IN", {style: "currency", currency: "INR", minimumFractionDigits: 0});
+            estimated_returns.value = estimated_returns_formatted; 
+        }
+
+    </script>
+</body>
+</html>
