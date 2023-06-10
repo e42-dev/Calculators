@@ -1,15 +1,20 @@
-var slider = document.getElementById('monthly_investment_slider');
-slider.value = 25000;
-var slider = document.getElementById('expected_return_rate_slider');
-slider.value = 12.0;
-var slider = document.getElementById('time_period_slider');
-slider.value = 10;
-
+window.onload = function () {
+    updateSlidertoValuebox('monthly_investment_slider', 'monthly_investment_value');
+    updateSlidertoValuebox('expected_return_rate_slider', 'expected_return_rate_value');
+    updateSlidertoValuebox('time_period_slider', 'time_period_value');
+    calculateResult();
+}
 function updateSliderValue(slider, valuebox) {
     //console.log(slider.textContent)
-    var pa = document.getElementById(slider);
-    var val = document.getElementById(valuebox);
-    val.value = pa.value;
+    var slider = document.getElementById(slider);
+    var valuebox = document.getElementById(valuebox);
+    valuebox.value = slider.value;
+}
+
+function updateValueboxToSlider(valuebox, slider) {
+    var valuebox = document.getElementById(valuebox);
+    var slider = document.getElementById(slider);
+    slider.value = valuebox.value;
 }
 
 function calculateResult() {

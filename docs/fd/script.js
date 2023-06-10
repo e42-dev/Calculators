@@ -1,10 +1,10 @@
-var slider = document.getElementById('total_investment_slider');
-slider.value = 100000;
-var slider = document.getElementById('rate_of_interest_slider');
-slider.value = 6.5;
-var slider = document.getElementById('time_period_slider');
-slider.value = 5;
-
+window.onload = function () {
+    updateSlidertoValuebox('total_investment_slider', 'total_investment_value');
+    updateSlidertoValuebox('rate_of_interest_slider', 'rate_of_interest_value');
+    updateSlidertoValuebox('time_period_slider', 'time_period_value');
+    calculateResult();
+}
+ 
 function updateSliderToValuebox(slider, valuebox) {
     var slider = document.getElementById(slider);
     var valuebox = document.getElementById(valuebox);

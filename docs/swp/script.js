@@ -1,11 +1,10 @@
-var slider = document.getElementById('total_investment_slider');
-slider.value = 500000;
-var slider = document.getElementById('withdrawl_per_month_slider');
-slider.value = 10000;
-var slider = document.getElementById('expected_rate_of_return_slider');
-slider.value = 8;
-var slider = document.getElementById('time_period_slider');
-slider.value = 5;
+window.onload = function () {
+    updateSlidertoValuebox('total_investment_slider', 'total_investment_value');
+    updateSlidertoValuebox('withdrawl_per_month_slider', 'withdrawl_per_month_value');
+    updateSlidertoValuebox('expected_return_rate_slider', 'expected_return_rate_value');
+    updateSlidertoValuebox('time_period_slider', 'time_period_value');
+    calculateResult();
+}
 
 function updateSliderToValuebox(slider, valuebox) {
     var slider = document.getElementById(slider);

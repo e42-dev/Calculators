@@ -1,20 +1,20 @@
 window.onload = function() {
-    var slider = document.getElementById('loan_amount_slider');
-    slider.value = 1000000;
-    var slider = document.getElementById('rate_of_interest_slider');
-    slider.value = 6.5;
-    var slider = document.getElementById('loan_tenure_slider');
-    slider.value = 5;
-    updateSliderValue('loan_amount_slider', 'principal_amount_value');
-    updateSliderValue('rate_of_interest_slider', 'rate_of_interest_value');
-    updateSliderValue('loan_tenure_slider', 'loan_tenure_value');
+    updateSlidertoValuebox('loan_amount_slider', 'principal_amount_value');
+    updateSlidertoValuebox('rate_of_interest_slider', 'rate_of_interest_value');
+    updateSlidertoValuebox('loan_tenure_slider', 'loan_tenure_value');
     calculateResult();
 }
 
-function updateSliderValue(slider, valuebox) {
-    var pa = document.getElementById(slider);
-    var val = document.getElementById(valuebox);
-    val.value = pa.value;
+function updateSlidertoValuebox(slider, valuebox) {
+    var slider = document.getElementById(slider);
+    var valuebox = document.getElementById(valuebox);
+    valuebox.value = slider.value;
+}
+
+function updateValueboxToSlider(valuebox, slider) {
+    var valuebox = document.getElementById(valuebox);
+    var slider = document.getElementById(slider);
+    slider.value = valuebox.value;
 }
 
 function calculateResult() {

@@ -1,12 +1,19 @@
-var slider = document.getElementById('yearly_investment_slider');
-slider.value = 10000;
-var slider = document.getElementById('time_period_slider');
-slider.value = 15;
+window.onload = function () {
+    updateSlidertoValuebox('yearly_investment_slider', 'yearly_investment_value');
+    updateSlidertoValuebox('time_period_slider', 'time_period_value');
+    calculateResult();
+}
 
-function updateSliderValue(slider, valuebox) {
-    var pa = document.getElementById(slider);
-    var val = document.getElementById(valuebox);
-    val.value = pa.value;
+function updateSlidertoValuebox(slider, valuebox) {
+    var slider = document.getElementById(slider);
+    var valuebox = document.getElementById(valuebox);
+    valuebox.value = slider.value;
+}
+
+function updateValueboxToSlider(valuebox, slider) {
+    var valuebox = document.getElementById(valuebox);
+    var slider = document.getElementById(slider);
+    slider.value = valuebox.value;
 }
 
 function calculateResult() {
