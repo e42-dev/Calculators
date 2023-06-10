@@ -14,21 +14,21 @@
     <a href="../"><button>BACK</button></a>
     <div class="container">
         <label for="loan_amount" >Loan amount</label>
-        <input type="number" class="Value_container" oninput="updateSliderValue('principal_amount_value', 'loan_amount_slider'); calculateResult()" id="principal_amount_value" style= "margin-right: 5px; text-align: left;" />      
+        <input type="number" class="Value_container" oninput="updateValueboxtoSlider('principal_amount_value', 'loan_amount_slider'); calculateResult()" id="principal_amount_value" style= "margin-right: 5px; text-align: left;" />      
         <input type="text"  class="Units" value="₹" disabled/><br/><br/>
-        <input type="range" min="100000" max="10000000" class="slider" id="loan_amount_slider" oninput="updateSliderValue('loan_amount_slider', 'principal_amount_value'); calculateResult();" />
+        <input type="range" min="100000" max="10000000" class="slider" id="loan_amount_slider" value = "1000000" oninput="updateSlidertoValuebox('loan_amount_slider', 'principal_amount_value'); calculateResult();" />
         <br/><br/>
         
         <label for="rate_of_interest" >Rate of interest(p.a)</label>
         <input type="text"  class="Units" value="%" style= "margin-right: 5px;" disabled/>
-        <input type="number" id="rate_of_interest_value" oninput="updateSliderValue('rate_of_interest_value', 'rate_of_interest_slider'); calculateResult();" class="Value_container" /><br/><br/>
-        <input type="range" min="1.00" max="30.0" id="rate_of_interest_slider" class="slider" step="0.1" oninput="updateSliderValue('rate_of_interest_slider', 'rate_of_interest_value'); calculateResult();" />
+        <input type="number" id="rate_of_interest_value" oninput="updateValueboxtoSlider('rate_of_interest_value', 'rate_of_interest_slider'); calculateResult();" class="Value_container" /><br/><br/>
+        <input type="range" min="1.00" max="30.0" id="rate_of_interest_slider" class="slider" step="0.1" value = "6.5" oninput="updateSlidertoValuebox('rate_of_interest_slider', 'rate_of_interest_value'); calculateResult();" />
         <br/><br/>
         
         <label for="loan_tenure">Loan tenure</label>
         <input type="text"  class="Units" value="Yr" style= "margin-right: 5px;" disabled />
-        <input type="number" id="loan_tenure_value" oninput="updateSliderValue('loan_tenure_value', 'loan_tenure_slider'); calculateResult(); " class="Value_container" /><br/><br/>
-        <input type="range" min="1" max="30" id="loan_tenure_slider" class="slider" oninput="updateSliderValue('loan_tenure_slider', 'loan_tenure_value'); calculateResult();" />
+        <input type="number" id="loan_tenure_value" oninput="updateValueboxtoSlider('loan_tenure_value', 'loan_tenure_slider'); calculateResult(); " class="Value_container" /><br/><br/>
+        <input type="range" min="1" max="30" id="loan_tenure_slider" class="slider" value = "5" oninput="updateSlidertoValuebox('loan_tenure_slider', 'loan_tenure_value'); calculateResult();" />
         <br/><br/> 
 
         <div>

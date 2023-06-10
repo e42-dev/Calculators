@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PPF calculator</title>
     <link rel="stylesheet" href="../style.css" />
     <script src="./script.js"></script>
 </head>
-<body onload="updateSliderValue('yearly_investment_slider', 'yearly_investment_value'); updateSliderValue('time_period_slider', 'time_period_value'); calculateResult();">
+<body>
 
     <h1>PUBLIC PROVIDENT FUND CALCULATOR</h1>
     <a href="../"><button>BACK</button></a>
     <div class="container">
         <label for="yearly_investment" >Yearly investment</label>
-        <input type="number" class="Value_container" oninput="updateSliderValue('yearly_investment_value', 'yearly_investment_slider'); calculateResult()" id="yearly_investment_value" style= "margin-right: 5px; text-align: left;" />      
+        <input type="number" class="Value_container" oninput="updateValueboxtoSlider('yearly_investment_value', 'yearly_investment_slider'); calculateResult()" id="yearly_investment_value" style= "margin-right: 5px; text-align: left;" />      
         <input type="text"  class="Units" value="₹" disabled/><br/><br/>
-        <input type="range" min="500" max="150000" class="slider" id="yearly_investment_slider" oninput="updateSliderValue('yearly_investment_slider', 'yearly_investment_value'); calculateResult();" />
+        <input type="range" min="500" max="150000" class="slider" id="yearly_investment_slider" value = "10000" oninput="updateSlidertoValuebox('yearly_investment_slider', 'yearly_investment_value'); calculateResult();" />
         <br/><br/>
         
         <label for="time_period" >Time period(in years)</label>
         <input type="text"  class="Units" value="Yr" style= "margin-right: 5px;" disabled/>
-        <input type="number" id="time_period_value" oninput="updateSliderValue('time_period_value', 'time_period_slider'); calculateResult();" class="Value_container" /><br/><br/>
-        <input type="range" min="15" max="50" id="time_period_slider" class="slider" step="1" oninput="updateSliderValue('time_period_slider', 'time_period_value'); calculateResult();" />
+        <input type="number" id="time_period_value" oninput="updateValueboxtoSlider('time_period_value', 'time_period_slider'); calculateResult();" class="Value_container" /><br/><br/>
+        <input type="range" min="15" max="50" id="time_period_slider" class="slider" step="1" value ="15" oninput="updateSlidertoValuebox('time_period_slider', 'time_period_value'); calculateResult();" />
         <br/><br/>
         
         <label for="rate_of_interest">Rate of interest</label>

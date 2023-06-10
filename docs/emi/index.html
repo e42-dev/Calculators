@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMI calculator</title>
     <link rel="stylesheet" href="../style.css" />
     <script src="./script.js"></script>
 </head>
-<body onload="updateSliderToValuebox('loan_amount_slider', 'loan_amount_value'); updateSliderToValuebox('rate_of_interest_slider', 'rate_of_interest_value'); updateSliderToValuebox('tenure_slider', 'tenure_value'); calculateResult();">
+<body>
 
     <h1>EMI CALCULATOR</h1>
     <a href="../" ><button>Back</button></a>
@@ -13,19 +16,19 @@
         <label for="Loan amount" >Loan Amount</label>
         <input type="number" class="Value_container" oninput="updateValueboxToSlider('loan_amount_value', 'loan_amount_slider'); calculateResult()" id="loan_amount_value" style= "margin-right: 5px; text-align: left;" />      
         <input type="text"  class="Units" value="₹" disabled/><br/><br/>
-        <input type="range" min="100000" max="10000000" class="slider" id="loan_amount_slider" oninput="updateSliderToValuebox('loan_amount_slider', 'loan_amount_value'); calculateResult();" />
+        <input type="range" min="100000" max="10000000" class="slider" id="loan_amount_slider" value="1000000" oninput="updateSliderToValuebox('loan_amount_slider', 'loan_amount_value'); calculateResult();" />
         <br/><br/>
         
         <label for="Rate of Interest" >Rate of Interest(p.a.)</label>
         <input type="text"  class="Units" value="%" style= "margin-right: 5px;" disabled/>
         <input type="number" id="rate_of_interest_value" oninput="updateValueboxToSlider('rate_of_interest_value', 'rate_of_interest_slider'); calculateResult();" class="Value_container" /><br/><br/>
-        <input type="range" min="1.00" max="30.0" id="rate_of_interest_slider" class="slider" step="0.1" oninput="updateSliderToValuebox('rate_of_interest_slider', 'rate_of_interest_value'); calculateResult();" />
+        <input type="range" min="1.00" max="30.0" id="rate_of_interest_slider" class="slider" step="0.1" value="6.5" oninput="updateSliderToValuebox('rate_of_interest_slider', 'rate_of_interest_value'); calculateResult();" />
         <br/><br/>
         
         <label for="Tenure">Tenure</label>
         <input type="text"  class="Units" value="Yr" style= "margin-right: 5px;" disabled />
         <input type="number" id="tenure_value" oninput="updateValueboxToSlider('tenure_value', 'tenure_slider'); calculateResult(); " class="Value_container" /><br/><br/>
-        <input type="range" min="1" max="30" id="tenure_slider" class="slider" oninput="updateSliderToValuebox('tenure_slider', 'tenure_value'); calculateResult();" />
+        <input type="range" min="1" max="30" id="tenure_slider" class="slider" value = "5" oninput="updateSliderToValuebox('tenure_slider', 'tenure_value'); calculateResult();" />
         <br/><br/><br/><br/>
 
         <div>

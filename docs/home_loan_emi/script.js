@@ -1,9 +1,9 @@
-var slider = document.getElementById('loan_amount_slider');
-slider.value = 1000000;
-var slider = document.getElementById('rate_of_interest_slider');
-slider.value = 6.5;
-var slider = document.getElementById('tenure_slider');
-slider.value = 5;
+window.onload = function () {
+    updateSlidertoValuebox('loan_amount_slider', 'loan_amount_value');
+    updateSlidertoValuebox('rate_of_interest_slider', 'rate_of_interest_value');
+    updateSlidertoValuebox('tenure_slider', 'tenure_value');
+    calculateResult();
+}
 
 function updateSliderToValuebox(slider, valuebox) {
     var slider = document.getElementById(slider);
